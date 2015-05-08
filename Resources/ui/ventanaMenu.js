@@ -43,17 +43,26 @@ function ventanaMenu(bd){
 	self.add(botonAlerta);	
 	
 	
-botonAngeles.addEventListener('click',function(e){
+	botonAngeles.addEventListener('click',function(e){
 		ventanaAngeles(bd).open();
 	});
  
-botonSincronizar.addEventListener('click',function(e){
+	botonSincronizar.addEventListener('click',function(e){
 		ventanaSincronizacion(bd).open();
 	});
 
-botonAlerta.addEventListener('click',function(e){
+	botonAlerta.addEventListener('click',function(e){
 		ventanaUbicacion(bd).open();
 	});
+	
+	/**Login Facebook*/
+	/*if(ventanaMenu().visible == true){
+			bd.execute("INSERT INTO entradas (nombre,apellido,fono,email) VALUES (?,?,?,?)", nombre,id," "," ");
+			alert('Usuario Registrado: "'+entradaTexto.value+' '+entradaApellido.value+'".');
+		}else{
+			alert('Debe estar lleno todos los campos.');
+	}*/
+	
 	return self;
 }
 

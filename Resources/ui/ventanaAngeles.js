@@ -35,13 +35,46 @@ function ventanaAngeles(bd){
 	self.add(botonAngeles);
 	self.add(botonA);	
 
-botonA.addEventListener('click',function(e){
+	botonA.addEventListener('click',function(e){
 		ventanaListar(bd).open();
 	});
 	
-botonAngeles.addEventListener('click',function(e){
+	botonAngeles.addEventListener('click',function(e){
 		ventanaAngelesAgregar(bd).open();
 	});
+	
+	var botonDir = Ti.UI.createButton({
+		title:'Ver Contactos',
+		backgroundColor: '#cddc39',
+		top: 275
+	});
+	
+	self.add(botonDir);	
+
+	botonDir.addEventListener('click',function(e){
+		var singleValue = ['recordId', 'firstName', 'middleName', 'lastName'];
+		var multiValue = ['email', 'address', 'phone', 'instantMessage'];
+		
+		var people = Ti.Contacts.getAllPeople();
+		
+		Ti.API.info('Total contacts: ' + people.length);
+	
+		for (var i=0, ilen=people.length; i<ilen; i++){
+		  Ti.API.info('---------------------');
+		  
+		  var person = people[i];
+		  
+		  for (var j=0, jlen=singleValue.length; j<jlen; j++){
+		    Ti.API.info(singleValue[j] + ': ' + person[singleValue[j]]);
+		  }
+		  
+		  for (var j=0, jlen=multiValue.length; j<jlen; j++){
+		    Ti.API.info(multiValue[j] + ': ' + JSON.stringify(person[multiValue[j]]));
+		  }
+		}
+	});
+	
+	
  
 	return self;
 }

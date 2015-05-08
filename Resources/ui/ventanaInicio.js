@@ -1,8 +1,14 @@
 function ventanaInicio(bd){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosC');
-		
+	/*if (Ti.Facebook.loggedIn == true) {
+		ventanaMenu(bd).open();
+	} else{
+		alert("Login Please");
+	};*/
+	
 	var ventanaAgregar = require('ui/ventanaAgregar');
-	//var ventanaAlerta = require('ui/ventanaAlerta');
+	var ventanaMenu = require('ui/ventanaMenu');
+ 
 	
 	var self = Ti.UI.createWindow({
 		title: 'S.O.S WRITSBAND - HOME',
@@ -21,7 +27,7 @@ function ventanaInicio(bd){
 	var botonCrear = Ti.UI.createButton({
 		title:'Registrarse',
 		backgroundColor: '#cddc39',
-		top: 200
+		top: 150
 	});
 	/*var botonListar = Ti.UI.createButton({
 		title:'Ver Usuarios',
@@ -45,12 +51,34 @@ function ventanaInicio(bd){
 	});
 	
 	
-	/*
-	var fb = require('facebook');
-	 fb.appid = 1138932042791009;
-	 fb.permissions = [FACEBOOK_APP_PERMISSIONS];
-	 fb.authorize();
- 	*/
+	/*FACEBOOK*/
+ 	var fb = require('facebook');
+		fb.appid = 1138932042791009;
+		fb.permissions = ['public_profile']; // Permissions your app needs
+		fb.forceDialogAuth = true;
+		fb.addEventListener('login', function(e) {
+		    if (e.success) {
+		        alert('Inicio de Sección Exitosa');
+		        ventanaMenu(bd).open();
+		    } else if (e.error) {
+		        alert("Error al iniciar sección, "+e.error);
+		    } else if (e.cancelled) {
+		        alert("Canceled");
+		    }
+		});
+		fb.authorize();
+		
+	fb.addEventListener('logout', function(e) {
+	    alert('Logged out');
+	});
+	fb.logout();
+	
+	self.add(fb.createLoginButton({
+	    top : 250,
+	    style : fb.BUTTON_STYLE_WIDE
+	}));
+	
+	
 	return self;
 }
 

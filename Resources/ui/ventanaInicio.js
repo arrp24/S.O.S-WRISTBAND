@@ -55,7 +55,7 @@ function ventanaInicio(bd){
  	var fb = require('facebook');
 		fb.appid = 1138932042791009;
 		fb.permissions = ['public_profile']; // Permissions your app needs
-		fb.forceDialogAuth = true;
+		fb.forceDialogAuth = false;
 		fb.addEventListener('login', function(e) {
 		    if (e.success) {
 		        alert('Inicio de Sección Exitosa');

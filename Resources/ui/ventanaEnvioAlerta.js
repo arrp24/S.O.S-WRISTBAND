@@ -14,7 +14,7 @@ function ventanaEnvioAlerta(bd,longitude,latitude){
 		backgroundColor: '#8d2242',
 		top:200
 	});
-	
+	/**comentario*/
 	btn.addEventListener('click', function(e) {
 	    Titanium.Media.takeScreenshot(function(e) {
 

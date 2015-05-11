@@ -1,7 +1,6 @@
 function ventanaAngeles(bd){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosA');
 	var ventanaAngelesAgregar = require('ui/ventanaAngelesAgregar');
-		
 	var ventanaAgregarAngeles = require('ui/ventanaAngelesAgregar');
 	var ventanaListar = require('ui/ventanaListar');
 	
@@ -51,7 +50,7 @@ function ventanaAngeles(bd){
 	
 	self.add(botonDir);	
 
-	botonDir.addEventListener('click',function(e){
+	/*botonDir.addEventListener('click',function(e){
 		var singleValue = ['recordId', 'firstName', 'middleName', 'lastName'];
 		var multiValue = ['email', 'address', 'phone', 'instantMessage'];
 		
@@ -72,10 +71,31 @@ function ventanaAngeles(bd){
 		    Ti.API.info(multiValue[j] + ': ' + JSON.stringify(person[multiValue[j]]));
 		  }
 		}
-	});
+		Ti.Contacts.showContacts(singleValue);
+	});*/
 	
-	
+	setTimeout(selectContactEmails, 1000);
  
+	function selectContactEmails() {
+	    var options = {};
+    	var output = '';
+ 
+    options.selectedPerson = function(e) {
+        var output = '';
+        for (property in e.person.email) {
+            for (item in e.person.email[property]) {
+                output += "\n" + property + '[' + item + ']: ' + e.person.email[property][item] + '; ';
+            }
+        }
+	        Ti.API.info("output: " + output);
+	        //Ti.API.info("email[home]: " + e.person.email["home"]);
+	        //Ti.API.info("email.home: " + e.person.email.home);
+	        //Ti.API.info("selected person: " + e.person.fullName);
+	    };
+	    Ti.Contacts.showContacts(options);
+	};
+	
+	botonDir.addEventListener('click',selectContactEmails);
 	return self;
 }
 

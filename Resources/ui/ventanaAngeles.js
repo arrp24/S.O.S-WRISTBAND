@@ -1,9 +1,8 @@
 function ventanaAngeles(bd){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosA');
 	var ventanaAngelesAgregar = require('ui/ventanaAngelesAgregar');
-		
-	var ventanaAgregarAngeles = require('ui/ventanaAngelesAgregar');
 	var ventanaListar = require('ui/ventanaListar');
+	var cont = 0;
 	
 	var self = Ti.UI.createWindow({
 		title: 'S.O.S WRITSBAND',
@@ -29,7 +28,7 @@ function ventanaAngeles(bd){
 	var botonA = Ti.UI.createButton({
 		title:'Ver Angeles',
 		backgroundColor: '#cddc39',
-		top: 275
+		top: 375
 	});
 	
 	self.add(botonAngeles);
@@ -51,31 +50,48 @@ function ventanaAngeles(bd){
 	
 	self.add(botonDir);	
 
-	botonDir.addEventListener('click',function(e){
-		var singleValue = ['recordId', 'firstName', 'middleName', 'lastName'];
-		var multiValue = ['email', 'address', 'phone', 'instantMessage'];
-		
-		var people = Ti.Contacts.getAllPeople();
-		
-		Ti.API.info('Total contacts: ' + people.length);
-	
-		for (var i=0, ilen=people.length; i<ilen; i++){
-		  Ti.API.info('---------------------');
-		  
-		  var person = people[i];
-		  
-		  for (var j=0, jlen=singleValue.length; j<jlen; j++){
-		    Ti.API.info(singleValue[j] + ': ' + person[singleValue[j]]);
-		  }
-		  
-		  for (var j=0, jlen=multiValue.length; j<jlen; j++){
-		    Ti.API.info(multiValue[j] + ': ' + JSON.stringify(person[multiValue[j]]));
-		  }
-		}
+/*CODIGO PARA CARGAR LOS CONTACTOS*/	
+	setTimeout(selectContactEmails, 1000);
+ 
+	botonDir.addEventListener('click',function selectContactEmails(){
+		var options = {};
+    	var output = '';
+ 
+    options.selectedPerson = function(e) {
+        //var output = '';
+        var mail = property in e.person.email;
+        var name = property in e.person.name;
+        //for (mail in e.person.email[property1] && nombre in e.person.name[property2]) {
+            
+            output += e.person.email[property][mail]+"--" + e.person.name[property][name] ;
+         
+	        Ti.API.info("output: " + output);
+	   };
+	    Ti.Contacts.showContacts(options);
+	    alert("Selecciono a " + output);
 	});
 	
+	/*Insertar Angeles*/
+	var enviarTextoA = Ti.UI.createButton({
+		title:'Angel #'+ cont,
+		backgroundColor: '#cddc39',
+		top:450
+	});
 	
- 
+	enviarTextoA.addEventListener('click',function(){
+		if(entradaNombre.value != '' && entradaApellidoA.value != ''){
+					bd.execute("INSERT INTO angeles (nombreA,apellidoA,fonoA,emailA) VALUES (?,?,?,?)", entradaNombre.value,entradaApellidoA.value,entradaFonoA.value,entradaEmailA.value);
+					alert('Angel Registrado: "'+entradaNombre.value+' '+entradaApellidoA.value+'".');
+					ventanaAngeles(bd).open();
+				}else{
+					alert('Deben estar llenos todos los campos.');
+				}//fin else
+	});//fin eventListener
+	
+	self.add(enviarTextoA);
+	
+	
+	
 	return self;
 }
 

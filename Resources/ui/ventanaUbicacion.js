@@ -6,7 +6,7 @@ var longitude;
 var latitude;
 		
 var self = Ti.UI.createWindow({
-		title: 'S.O.S WRITSBAND',
+		title: 'S.O.S WRITSBAND-UBICACION',
 		backgroundColor:'white'
 	});
 
@@ -74,10 +74,10 @@ var mapview = Titanium.Map.createView({
 	height:200,
 	mapType: Titanium.Map.STANDARD_TYPE,
 	region:{
-		latitude:-0.180653,
-		longitude:-78.467838,
-		latitudeDelta:0.008, 
-		longitudeDelta:0.008
+		latitude: -0.2106,
+		longitude: -78.4913,
+		latitudeDelta:0.006, 
+		longitudeDelta:0.006
 		},
 	animate:true,
 	regionFit:true,

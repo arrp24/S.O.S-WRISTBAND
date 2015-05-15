@@ -75,6 +75,7 @@ function ventanaInicio(bd){
 	
 	function updateLoginStatus() {
 		estado.text = 'Logged In = ' + facebook.loggedIn;
+		logVerified();
 	}
 	
 	// capture

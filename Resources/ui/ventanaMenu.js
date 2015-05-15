@@ -9,7 +9,7 @@ function ventanaMenu(bd){
 		title: 'S.O.S WRITSBAND',
 		backgroundColor:'white'
 	});
-	self.addEventListener("load", logInStatus);
+	self.addEventListener("open", logInStatus);
 	
 	var textoInicio= Titanium.UI.createLabel({
 		text: 'S.O.S WRITSBAND',
@@ -110,7 +110,7 @@ function ventanaMenu(bd){
 		text:'Logged In = ' + state,
 		font:{fontSize:14},
 		height:'auto',
-		left: 590,
+		bottom: 20,
 		textAlign:'center'
 	});
 	self.add(estado);

@@ -1,7 +1,6 @@
 function ventanaInicio(bd){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosC');
 	
-	
 	var platformName = Titanium.Platform.osname;
 	var facebook;
 	if (platformName == 'android' || platformName == 'iphone' || platformName == 'ipad') {
@@ -9,6 +8,8 @@ function ventanaInicio(bd){
 	} else {
 		facebook = Titanium.Facebook;
 	}
+	
+	setTimeout(logVerified, 20000);
 		
 	var ventanaAgregar = require('ui/ventanaAgregar');
 	var ventanaMenu = require('ui/ventanaMenu');
@@ -18,6 +19,8 @@ function ventanaInicio(bd){
 		title: 'S.O.S WRITSBAND - HOME',
 		backgroundColor:'white'
 		});
+	
+	self.addEventListener("load", logVerified);
 	
 	facebook.appid = '1139084416109105';
 	facebook.permissions = ['public_profile'];

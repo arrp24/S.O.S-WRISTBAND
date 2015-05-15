@@ -84,8 +84,6 @@ function ventanaAngeles(bd){
 	self.add(botonDir);
 	self.add(ayuda2);	
 	
-	//setTimeout(selectContactEmails, 1000);
- 
 	function selectContactEmails() {
 	    var options = {};
  

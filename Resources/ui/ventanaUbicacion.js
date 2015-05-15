@@ -2,6 +2,7 @@ function ventanaUbicacion(bd){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosA');
 
 var ventanaEnvioAlerta = require('ui/ventanaEnvioAlerta');
+var ventanaSMS = require('ui/ventanaSMS');
 var longitude;
 var latitude;
 		
@@ -150,7 +151,7 @@ var botonAlerta = Ti.UI.createButton({
 	botonAlerta.addEventListener('click',function(e){
 		//alert('Enviando Alerta');
 		//ventanaEnvioAlerta(bd,longitude,latitude).open();
-		Titanium.Media.takeScreenshot(function(e) {
+		/*Titanium.Media.takeScreenshot(function(e) {
 
 	        var emailDialog = Titanium.UI.createEmailDialog();
 	        emailDialog.setToRecipients(['arrp19@gmail.com']);
@@ -165,19 +166,46 @@ var botonAlerta = Ti.UI.createButton({
 	            }
 	        });
 	        emailDialog.open();
-	    });
+	    });*/
+	   
+		/**
+		 *CODIGO ENVIAR MAIL
+		 *  */
+		var sendgrid = require('tisendgrid')('SENDGRID-USERNAME', 'SENDGRID-PASSOWORD');
+			sendgrid.send({
+			  to: 'arrp19@gmail.com',
+			  from: 'arrp@live.com',
+			  subject: 'Hello!',
+			  text: 'Hello again!'
+			}, function (e) {
+			  if (e) {
+			    console.log(e); // Email wasn't sent
+			  }
+		});
+		
+			   
+	    /**
+	     * CODIGO ENVIAR MAIL
+	     * */
+	    var emailDialog = Titanium.UI.createEmailDialog();
+			emailDialog.subject = "Hello from Titanium";
+			emailDialog.toRecipients = ['arrp19@gmail.com'];
+			emailDialog.messageBody = '<b>Appcelerator Titanium Rocks!</b>';
+			emailDialog.open();
 	    
-	    /*SMS SEND*/
-	    self.addEventListener('open', function () {
+	    /**
+	     * CODIGO ENVIAR SMS SEND
+	     * */
+	    //self.addEventListener('open', function () {
 			var SMSDialog = Titanium.UI.createSMSDialog();
 			if (!SMSDialog.isSupported()) {
-				Ti.UI.createAlertDialog({
+				Titanium.UI.createAlertDialog({
 					title: 'Error',
 					message: 'SMS not available'
 				}).show();
 				return;
 			}
-	
+			alert('Mensaje SMS');
 			SMSDialog.setToRecipients(['+593992900868']);
 			SMSDialog.setMessageBody('Alerta......\n'+'Longitud = ' + longitude +'\n Latitud = ' + latitude);
 	
@@ -191,8 +219,8 @@ var botonAlerta = Ti.UI.createButton({
 				}
 			});
 	
-			SMSDialog.open();
-		});// Fin SMS
+			SMSDialog.open();// Fin SMS
+		//});
 	});
 
 var boton = Titanium.UI.createButton ({
@@ -204,14 +232,28 @@ var boton = Titanium.UI.createButton ({
 	width: 200,
 	height: 40
 });
-
  
-    
 boton.addEventListener('click',function(e){
 	self.close();
 });
+
+var botonSMS = Titanium.UI.createButton ({
+	title: 'SMS',
+	backgroundColor: '#cddc39',
+	color: 'black',
+	bottom: 50,
+	borderRadius: 10,
+	width: 200,
+	height: 40
+});
+ 
+botonSMS.addEventListener('click',function(e){
+	ventanaSMS().open();
+});
+
 self.add(botonAlerta);
 self.add(boton);
+self.add(botonSMS);
 self.add(mapview);
 return self;
 

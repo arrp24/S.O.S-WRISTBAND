@@ -46,11 +46,11 @@ function ventanaMenu(bd){
 		height: 40
 	});
 	var ayuda1= Titanium.UI.createLabel({
-		text: 'Seleccioma a tus Ángel ',
+		text: 'Selecciona a tus Ángeles ',
 		font: {fontSize:14},
 		color : 'black',
 		textAlign: 'center',
-		top: 195
+		top: 215
 	});
 	var botonSincronizar = Ti.UI.createButton({
 		title:'Sincronizar',
@@ -66,7 +66,7 @@ function ventanaMenu(bd){
 		font: {fontSize:14},
 		color : 'black',
 		textAlign: 'center',
-		top: 295
+		top: 315
 	});
 	var botonAlerta = Ti.UI.createButton({
 		title:'Enviar Alerta',
@@ -82,7 +82,7 @@ function ventanaMenu(bd){
 		font: {fontSize:14},
 		color : 'black',
 		textAlign: 'center',
-		top: 395
+		top: 415
 	});
 	
 	self.add(botonAngeles);

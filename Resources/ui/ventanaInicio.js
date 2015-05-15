@@ -1,11 +1,14 @@
 function ventanaInicio(bd){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosC');
-	/*if (Ti.Facebook.loggedIn == true) {
-		ventanaMenu(bd).open();
-	} else{
-		alert("Login Please");
-	};*/
 	
+	var platformName = Titanium.Platform.osname;
+	var facebook;
+	if (platformName == 'android' || platformName == 'iphone' || platformName == 'ipad') {
+		facebook = require('facebook');
+	} else {
+		facebook = Titanium.Facebook;
+	}
+		
 	var ventanaAgregar = require('ui/ventanaAgregar');
 	var ventanaMenu = require('ui/ventanaMenu');
  
@@ -14,6 +17,10 @@ function ventanaInicio(bd){
 		title: 'S.O.S WRITSBAND - HOME',
 		backgroundColor:'white'
 		});
+		
+	facebook.appid = '495338853813822';
+	facebook.permissions = ['publish_stream', 'read_stream'];
+
 	
 	var textoInicio= Titanium.UI.createLabel({
 		text: 'S.O.S WRISTBAND 		Siente Seguro',
@@ -27,22 +34,17 @@ function ventanaInicio(bd){
 	var botonCrear = Ti.UI.createButton({
 		title:'Registrarse',
 		backgroundColor: '#cddc39',
-		top: 150
+		top: 250
 	});
-	/*var botonListar = Ti.UI.createButton({
-		title:'Ver Usuarios',
-		top: 275
-	});*/
-	
+		
 	self.add(botonCrear);
-	//self.add(botonListar);
 
 
 	var imagen = Ti.UI.createImageView({
-	imagen:'/images/logo.png',
-	width: 15,
-	height:15,
-	top: 10
+		imagen:'/images/logo.png',
+		width: 15,
+		height:15,
+		top: 10
 	});
 	self.add(imagen); 
 	
@@ -52,32 +54,45 @@ function ventanaInicio(bd){
 	
 	
 	/*FACEBOOK*/
- 	var fb = require('facebook');
-		fb.appid = 1138932042791009;
-		fb.permissions = ['public_profile']; // Permissions your app needs
-		fb.forceDialogAuth = true;
-		fb.addEventListener('login', function(e) {
-		    if (e.success) {
-		        alert('Inicio de Sección Exitosa');
-		        ventanaMenu(bd).open();
-		    } else if (e.error) {
-		        alert("Error al iniciar sección, "+e.error);
-		    } else if (e.cancelled) {
-		        alert("Canceled");
-		    }
-		});
-		fb.authorize();
-		
-	fb.addEventListener('logout', function(e) {
-	    alert('Logged out');
+ 	//
+	// Login Status
+	//
+	var label = Ti.UI.createLabel({
+		text:'Logged In = ' + facebook.loggedIn,
+		font:{fontSize:14},
+		height:'auto',
+		top:10,
+		textAlign:'center'
 	});
-	fb.logout();
+	self.add(label);
 	
-	self.add(fb.createLoginButton({
-	    top : 250,
-	    style : fb.BUTTON_STYLE_WIDE
+	var forceButton = Ti.UI.createButton({
+		title:'Force dialog: '+ facebook.forceDialogAuth,
+		top:50,
+		width:160,
+		height:40
+	});
+	forceButton.addEventListener('click', function() {
+		facebook.forceDialogAuth = !facebook.forceDialogAuth;
+		forceButton.title = "Force dialog: "+facebook.forceDialogAuth;
+	});
+	self.add(forceButton);
+	
+	function updateLoginStatus() {
+		label.text = 'Logged In = ' + facebook.loggedIn;
+	}
+	
+	// capture
+	facebook.addEventListener('login', updateLoginStatus);
+	facebook.addEventListener('logout', updateLoginStatus);
+	
+	//
+	// Login Button
+	//
+	self.add(facebook.createLoginButton({
+		style : facebook.BUTTON_STYLE_WIDE,
+		bottom : 30
 	}));
-	
 	
 	return self;
 }

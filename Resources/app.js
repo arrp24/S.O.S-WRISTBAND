@@ -5,7 +5,7 @@
 	var	height = Ti.Platform.displayCaps.platformHeight;
 	var	width = Ti.Platform.displayCaps.platformWidth;
 	
-	alert('Control de Base de datos');
+	//alert('Control de Base de datos');
 	
 	var bd = Ti.Database.open('baseDeDatos');
 	bd.execute('DROP TABLE  IF EXISTS entradas');	

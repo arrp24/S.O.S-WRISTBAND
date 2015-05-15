@@ -148,6 +148,7 @@ var botonAlerta = Ti.UI.createButton({
 	});
 	
 	botonAlerta.addEventListener('click',function(e){
+		
 		//alert('Enviando Alerta');
 		//ventanaEnvioAlerta(bd,longitude,latitude).open();
 		Titanium.Media.takeScreenshot(function(e) {
@@ -156,14 +157,16 @@ var botonAlerta = Ti.UI.createButton({
 	        emailDialog.setSubject('Alerta');
 	        emailDialog.setMessageBody('Alerta Necesito Ayuda......\n'+'Longitud = ' + longitude +'\n Latitud = ' + latitude);
 	        emailDialog.setHtml(true);
+	        emailDialog.SENT;
+	        alert('Alerta de emergencia enviada');
 	
-	        emailDialog.addEventListener('complete', function(e) {
+	        /*emailDialog.addEventListener('complete', function(e) {
 	            if(e.result == emailDialog.SENT) {
-	
 	                alert("CONFIRMACION DE ENVIO DE ALERTA");
 	            }
-	        });
-	        emailDialog.open();
+	        });*/
+	        //emailDialog.open();
+	        
 	    });
 	    
 	    /*SMS SEND*/

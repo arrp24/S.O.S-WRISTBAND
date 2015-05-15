@@ -88,11 +88,10 @@ function ventanaAngeles(bd){
 	    var options = {};
  
     options.selectedPerson = function(e) {
-        var mail = e.person.email.personal;
+        var mail = e.person.email.other;
         //var nombre = e.person.fullName;
         var nombre = e.person.firstName;
-        //var apellido = e.person.lastName;
-        var apellido = e.person.middleName;
+        var apellido = e.person.middleName + " " + e.person.lastName;
         var fono = e.person.getPhone().mobile;
         	
         	Ti.API.info("fono: " + fono);

@@ -9,7 +9,7 @@ function ventanaInicio(bd){
 		facebook = Titanium.Facebook;
 	}
 	
-	setTimeout(logVerified, 20000);
+	//setTimeout(logVerified, 20000);
 		
 	var ventanaAgregar = require('ui/ventanaAgregar');
 	var ventanaMenu = require('ui/ventanaMenu');
@@ -64,8 +64,8 @@ function ventanaInicio(bd){
 		title: facebook.forceDialogAuth,
 		bottom: 50,
 		borderRadius: 10,
-		width: 40,
-		height: 40
+		width: 1,
+		height: 1
 	});
 	forceButton.addEventListener('click', function() {
 		facebook.forceDialogAuth = !facebook.forceDialogAuth;
@@ -96,11 +96,8 @@ function ventanaInicio(bd){
 		if (facebook.loggedIn == true) {
 			ventanaMenu(bd).open();
 		} else{
-			if (facebook.loggedIn == false) {
-				alert("Inicie sesión localmente o con su cuenta de Facebook");
-			};
+			
 		};
-		
 	}
 	
 	return self;

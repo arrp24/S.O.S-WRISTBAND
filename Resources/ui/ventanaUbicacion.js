@@ -10,7 +10,7 @@ var self = Ti.UI.createWindow({
 		title: 'S.O.S WRITSBAND-UBICACION',
 		backgroundColor:'white'
 	});
-
+	
 var label= Titanium.UI.createLabel({
 	text: 'UBICACION',
 	top: 2,
@@ -84,10 +84,7 @@ var mapview = Titanium.Map.createView({
 	regionFit:true,
 	userLocation:true,
 	animated:true,
-	anchorPoint:true,
-	
-	
-		
+	anchorPoint:true,	
 });
 
 Ti.Geolocation.preferredProvider = "gps";
@@ -119,8 +116,7 @@ Titanium.Geolocation.getCurrentPosition(function(e)
 
 	
 var myCallback = function(e) {
- 
-    myComonent.setTitle(e.places.address);
+     myComonent.setTitle(e.places.address);
 };
 
 var getAddress = function(latitude,longitude, callback){
@@ -148,49 +144,14 @@ var botonAlerta = Ti.UI.createButton({
 		height: 40
 	});
 	
-	botonAlerta.addEventListener('click',function(e){
-		//alert('Enviando Alerta');
-		//ventanaEnvioAlerta(bd,longitude,latitude).open();
-		/*Titanium.Media.takeScreenshot(function(e) {
-
-	        var emailDialog = Titanium.UI.createEmailDialog();
-	        emailDialog.setToRecipients(['arrp19@gmail.com']);
-	        emailDialog.setSubject('Alerta');
-	        emailDialog.setMessageBody('Alerta......\n'+'Longitud = ' + longitude +'\n Latitud = ' + latitude);
-	        emailDialog.setHtml(true);
-	
-	        emailDialog.addEventListener('complete', function(e) {
-	            if(e.result == emailDialog.SENT) {
-	
-	                alert("CONFIRMACION DE ENVIO DE ALERTA");
-	            }
-	        });
-	        emailDialog.open();
-	    });*/
-	   
-		/**
-		 *CODIGO ENVIAR MAIL
-		 *  */
-		var sendgrid = require('tisendgrid')('SENDGRID-USERNAME', 'SENDGRID-PASSOWORD');
-			sendgrid.send({
-			  to: 'arrp19@gmail.com',
-			  from: 'arrp@live.com',
-			  subject: 'Hello!',
-			  text: 'Hello again!'
-			}, function (e) {
-			  if (e) {
-			    console.log(e); // Email wasn't sent
-			  }
-		});
-		
-			   
+	botonAlerta.addEventListener('click',function(e){	   
 	    /**
 	     * CODIGO ENVIAR MAIL
 	     * */
 	    var emailDialog = Titanium.UI.createEmailDialog();
 			emailDialog.subject = "Hello from Titanium";
 			emailDialog.toRecipients = ['arrp19@gmail.com'];
-			emailDialog.messageBody = '<b>Appcelerator Titanium Rocks!</b>';
+			emailDialog.messageBody = '<b>Alerta Necesito Ayuda......\n'+'Longitud = ' + longitude +'\n Latitud = ' + latitude</b>';
 			emailDialog.open();
 	    
 	    /**
@@ -218,11 +179,41 @@ var botonAlerta = Ti.UI.createButton({
 					Ti.API.info('SMS was failed');
 				}
 			});
-	
 			SMSDialog.open();// Fin SMS
 		//});
+		
+		if (Ti.Platform.name == "android") {
+			var smsMod = require('ti.android.sms');
+				Ti.API.info("module is => " + smsMod);
+			
+				smsMod.addEventListener('complete', function(e){
+					Ti.API.info('Result: ' + (e.success?'success':'failure') + ' msg: ' + e.resultMessage);
+					var result = 'unexpected result...';
+					switch (e.result) {
+						case smsMod.SENT: 
+							result = 'SENT';
+							break;
+						case smsMod.DELIVERED: 
+							result = 'DELIVERED';
+							break;
+						case smsMod.FAILED:
+							result = 'FAILED';
+							break;
+						case smsMod.CANCELLED:
+							result = 'CANCELLED';
+							break;
+					}
+					
+					alert('Message sending result: ' + result);
+				});
+				
+			smsMod.sendSMS('+593992900868', 'Alerta Necesito Ayuda......\n'+'Longitud = ' + longitude +'\n Latitud = ' + latitude');
+			}
+			else {
+				alert('Nothing to see on iOS');
+			}
 	});
-
+	
 var boton = Titanium.UI.createButton ({
 	title: 'Cerrar',
 	backgroundColor: '#cddc39',
@@ -237,23 +228,8 @@ boton.addEventListener('click',function(e){
 	self.close();
 });
 
-var botonSMS = Titanium.UI.createButton ({
-	title: 'SMS',
-	backgroundColor: '#cddc39',
-	color: 'black',
-	bottom: 50,
-	borderRadius: 10,
-	width: 200,
-	height: 40
-});
- 
-botonSMS.addEventListener('click',function(e){
-	ventanaSMS().open();
-});
-
 self.add(botonAlerta);
 self.add(boton);
-self.add(botonSMS);
 self.add(mapview);
 return self;
 

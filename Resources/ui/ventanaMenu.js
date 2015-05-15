@@ -4,11 +4,12 @@ function ventanaMenu(bd){
 	var ventanaAngeles = require('ui/ventanaAngeles');
 	var ventanaSincronizacion = require('ui/ventanaSincronizacion');
 	var ventanaUbicacion = require('ui/ventanaUbicacion');
-	
+	var state = 'Inactive';
 	var self = Ti.UI.createWindow({
 		title: 'S.O.S WRITSBAND',
 		backgroundColor:'white'
 	});
+	self.addEventListener("load", logInStatus);
 	
 	var textoInicio= Titanium.UI.createLabel({
 		text: 'S.O.S WRITSBAND',
@@ -104,6 +105,21 @@ function ventanaMenu(bd){
 	botonAlerta.addEventListener('click',function(e){
 		ventanaUbicacion(bd).open();
 	});
+	
+	var estado = Ti.UI.createLabel({
+		text:'Logged In = ' + state,
+		font:{fontSize:14},
+		height:'auto',
+		left: 590,
+		textAlign:'center'
+	});
+	self.add(estado);
+	
+	function logInStatus(){
+		alert('BIENVENIDO A S.O.S WRISTBAND ');
+		state = 'Active';
+		estado.text = 'Logged In = ' + state;
+	}
 	
 	return self;
 }

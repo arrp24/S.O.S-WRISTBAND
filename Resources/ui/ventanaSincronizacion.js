@@ -15,7 +15,7 @@ var label= Titanium.UI.createLabel({
 	font:{
 		fontFamily:'Helvetica Neue',
 		fontSize:22,
-		shadowColor: 'white'
+		shadowColor: 'black'
 			},
 	textAlign:'center',
 });
@@ -25,10 +25,9 @@ var label2= Titanium.UI.createLabel({
 	top: 40,
 	width:400,
 	height:'auto',
-	font:{
-		fontFamily:'Helvetica Neue',
-		fontSize:18,
-			},
+	font:{fontFamily:'Helvetica Neue',
+		  fontSize:18,},
+	color: '#000000',
 	textAlign:'center',
 	background: '#F5D0A9'
 
@@ -39,10 +38,9 @@ var label3= Titanium.UI.createLabel({
 	top: 90,
 	width:400,
 	height:'auto',
-	font:{
-		fontFamily:'Helvetica Neue',
-		fontSize:18,
-			},
+	font:{fontFamily:'Helvetica Neue',
+		  fontSize:18,},
+	color: '#000000',
 	textAlign:'center',
 	background: '#F5D0A9'
 
@@ -51,9 +49,11 @@ var label3= Titanium.UI.createLabel({
 
 var button = Titanium.UI.createButton ({
 	title: 'Sincronizar',
-	width:180,
-	height:50,
-	backgroundColor:'#cddc39'
+	borderRadius: 10,
+	width: 200,
+	height: 40,
+	backgroundColor: '#cddc39',
+	color: 'black',
 });
 
 button.addEventListener('click',function(e){
@@ -63,14 +63,15 @@ button.addEventListener('click',function(e){
 
 var button = Titanium.UI.createButton ({
 	title: 'Cerrar',
-	width:180,
-	height:50,
-	backgroundColor:'#C8FE2E'
+	borderRadius: 10,
+	width: 100,
+	height: 40,
+	backgroundColor: '#cddc39',
+	color: 'black',
 });
 
 button.addEventListener('click',function(e){
 	self.close();
-	
 });
 
 /*var novarumbluetooth = require('com.novarum.bluetooth');

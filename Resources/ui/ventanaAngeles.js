@@ -20,8 +20,12 @@ function ventanaAngeles(bd){
 
 	var botonAngeles = Ti.UI.createButton({
 		title:'Registrar Angel',
+		top: 175,
 		backgroundColor: '#cddc39',
-		top: 175
+		color: 'black',
+		borderRadius: 10,
+		width:200,
+		height:40
 	});
 	var ayuda1= Titanium.UI.createLabel({
 		text: 'Ingresa un Ángel ',
@@ -33,8 +37,12 @@ function ventanaAngeles(bd){
 	});
 	var botonDir = Ti.UI.createButton({
 		title:'Contactos',
+		top: 275,
 		backgroundColor: '#cddc39',
-		top: 275
+		color: 'black',
+		borderRadius: 10,
+		width:200,
+		height:40
 	});
 	var ayuda2= Titanium.UI.createLabel({
 		text: 'Escoge un Ángel desde tu libreta',
@@ -47,9 +55,29 @@ function ventanaAngeles(bd){
 	var botonA = Ti.UI.createButton({
 		title:'Ver Angeles',
 		backgroundColor: '#cddc39',
-		top: 375
+		color: 'black',
+		top: 375,
+		borderRadius: 10,
+		width:200,
+		height:40
 	});
 	
+	var botonCerrar = Ti.UI.createButton({
+		title: 'Atras',
+		top: 5,
+		backgroundColor: '#cddc39',
+		color: 'black',
+		borderRadius: 10,
+		width: 100,
+		height: 40,
+		right: 20
+	});
+	
+	botonCerrar.addEventListener('click',function(){
+		self.close();
+	});
+	
+	self.add(botonCerrar);
 	self.add(botonAngeles);
 	self.add(ayuda1);
 	self.add(botonA);

@@ -9,10 +9,13 @@ function ventanaAngelesAgregar(bd){
 	});
 		
 	var botonCerrar = Ti.UI.createButton({
-		title: 'atras',
-		backgroundColor:'#ea9c67',
-		top: 20,
-		left: 15
+		title: 'Atras',
+		backgroundColor: '#cddc39',
+		color: 'black',
+		left: 20,
+		borderRadius: 10,
+		width: 100,
+		height: 40
 	});
 	
 	botonCerrar.addEventListener('click',function(){
@@ -56,25 +59,22 @@ function ventanaAngelesAgregar(bd){
 	var enviarTextoA = Ti.UI.createButton({
 		title:'Agregar Angel',
 		backgroundColor: '#cddc39',
-		top:350
+		color: 'black',
+		right:20,
+		borderRadius: 10,
+		width: 200,
+		height: 40
 	});
 	
 	enviarTextoA.addEventListener('click',function(){
-		var i = 0;
-		do {
-			if(entradaNombre.value != '' && entradaApellidoA.value != ''){
-					bd.execute("INSERT INTO angeles (nombreA,apellidoA,fonoA,emailA) VALUES (?,?,?,?)", entradaNombre.value,entradaApellidoA.value,entradaFonoA.value,entradaEmailA.value);
-					alert('Angel Registrado: "'+entradaNombre.value+' '+entradaApellidoA.value+'".');
-					ventanaAngeles(bd).open();
-				}else{
-					alert('Deben estar llenos todos los campos.');
-				}//fin else
-				
-				console.log(i);
-		    i++;
-		}
-		while (i === 3);
-		ventanaEnvioAlerta(bd).open();
+		if(entradaNombre.value != '' && entradaApellidoA.value != ''){
+				bd.execute("INSERT INTO angeles (nombreA,apellidoA,fonoA,emailA) VALUES (?,?,?,?)", entradaNombre.value,entradaApellidoA.value,entradaFonoA.value,entradaEmailA.value);
+				alert('Angel Registrado: "'+entradaNombre.value+' '+entradaApellidoA.value+'".');
+				ventanaAngeles(bd).open();
+			}else{
+				alert('Deben estar llenos todos los campos.');
+		}//fin else
+		//ventanaEnvioAlerta(bd).open();
 	});//fin eventListener
 	
 	self.add(entradaNombre);

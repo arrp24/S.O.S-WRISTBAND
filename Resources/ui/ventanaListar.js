@@ -10,14 +10,18 @@ function ventanaListar(bd){
 	var botonCerrar = Ti.UI.createButton({
 		title: 'Atras',
 		top: 25,
-		backgroundColor: '#ea9c67',
+		backgroundColor: '#cddc39',
+		color: 'black',
+		borderRadius: 10,
+		width: 100,
+		height: 40,
 		right: 15
 	});
 	
 	botonCerrar.addEventListener('click',function(){
 		self.close();
 	});
-		
+	
 	var tabla = Ti.UI.createTableView({
 		editable:true
 	});

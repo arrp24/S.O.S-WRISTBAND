@@ -10,10 +10,13 @@ function ventanaAngelesEditar(id,bd){
 	});
 		
 	var botonCerrar = Ti.UI.createButton({
-		title: 'Cerrar',
-		backgroundColor:'#ea9c67',
-		top: 25,
-		right: 15
+		title: 'Atras',
+		backgroundColor: '#cddc39',
+		color: 'black',
+		left: 20,
+		borderRadius: 10,
+		width: 100,
+		height: 40
 	});
 	
 	botonCerrar.addEventListener('click',function(){
@@ -62,7 +65,11 @@ function ventanaAngelesEditar(id,bd){
 	var enviarTextoA = Ti.UI.createButton({
 		title:'Actualizar entrada',
 		backgroundColor: '#cddc39',
-		top:350
+		color: 'black',
+		right: 20,
+		borderRadius: 10,
+		width: 200,
+		height: 40
 	});
 	
 	enviarTextoA.addEventListener('click',function(){

@@ -5,7 +5,7 @@ function ventanaAgregar(bd){
  
    
 	var self = Ti.UI.createWindow({
-		title: 'S.O.S WRITSBAND - USUARIO',
+		title: 'S.O.S WRITSBAND',
 		backgroundColor:'white'
 	});
 	
@@ -19,10 +19,13 @@ function ventanaAgregar(bd){
 	self.add(textoInicio);
 		
 	var botonCerrar = Ti.UI.createButton({
-		title: 'atras',
-		backgroundColor: '#ea9c67',
-		top: 20,
-		left: 15
+		title: 'Atras',
+		backgroundColor: '#cddc39',
+		color: 'black',
+		left: 20,
+		borderRadius: 10,
+		width: 100,
+		height: 40,
 	});
 	
 	botonCerrar.addEventListener('click',function(){
@@ -66,7 +69,11 @@ function ventanaAgregar(bd){
 	var enviarTexto = Ti.UI.createButton({
 		title:'Agregar usuario',
 		backgroundColor: '#cddc39',
-		top:350
+		color: 'black',
+		right: 20,
+		borderRadius: 10,
+		width: 200,
+		height: 40,
 	});
 	
 	enviarTexto.addEventListener('click',function(){

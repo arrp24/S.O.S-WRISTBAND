@@ -1,6 +1,7 @@
 function ventanaInicio(bd){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosC');
 	
+	
 	var platformName = Titanium.Platform.osname;
 	var facebook;
 	if (platformName == 'android' || platformName == 'iphone' || platformName == 'ipad') {
@@ -17,37 +18,27 @@ function ventanaInicio(bd){
 		title: 'S.O.S WRITSBAND - HOME',
 		backgroundColor:'white'
 		});
-		
-	facebook.appid = '495338853813822';
-	facebook.permissions = ['publish_stream', 'read_stream'];
-
 	
-	var textoInicio= Titanium.UI.createLabel({
-		text: 'S.O.S WRISTBAND 		Siente Seguro',
-		font: {fontSize:35},
-		top: 10,
-		textAlign: 'center',
-		color: 'black'
+	facebook.appid = '1139084416109105';
+	facebook.permissions = ['public_profile'];
+
+	var image = Ti.UI.createImageView({
+	  image:'/images/logo.png',
+	  top: 90
 	});
-	self.add(textoInicio);
+	self.add(image); 
 	
 	var botonCrear = Ti.UI.createButton({
 		title:'Registrarse',
+		top: 450,
 		backgroundColor: '#cddc39',
-		top: 250
+		color: 'black',
+		borderRadius: 10,
+		width:200,
+		height:40
 	});
-		
 	self.add(botonCrear);
 
-
-	var imagen = Ti.UI.createImageView({
-		imagen:'/images/logo.png',
-		width: 15,
-		height:15,
-		top: 10
-	});
-	self.add(imagen); 
-	
 	botonCrear.addEventListener('click',function(e){
 		ventanaAgregar(bd).open();
 	});
@@ -57,20 +48,21 @@ function ventanaInicio(bd){
  	//
 	// Login Status
 	//
-	var label = Ti.UI.createLabel({
+	var estado = Ti.UI.createLabel({
 		text:'Logged In = ' + facebook.loggedIn,
 		font:{fontSize:14},
 		height:'auto',
-		top:10,
+		top: 590,
 		textAlign:'center'
 	});
-	self.add(label);
+	self.add(estado);
 	
 	var forceButton = Ti.UI.createButton({
-		title:'Force dialog: '+ facebook.forceDialogAuth,
-		top:50,
-		width:160,
-		height:40
+		title: facebook.forceDialogAuth,
+		bottom: 50,
+		borderRadius: 10,
+		width: 40,
+		height: 40
 	});
 	forceButton.addEventListener('click', function() {
 		facebook.forceDialogAuth = !facebook.forceDialogAuth;
@@ -79,7 +71,7 @@ function ventanaInicio(bd){
 	self.add(forceButton);
 	
 	function updateLoginStatus() {
-		label.text = 'Logged In = ' + facebook.loggedIn;
+		estado.text = 'Logged In = ' + facebook.loggedIn;
 	}
 	
 	// capture
@@ -91,8 +83,22 @@ function ventanaInicio(bd){
 	//
 	self.add(facebook.createLoginButton({
 		style : facebook.BUTTON_STYLE_WIDE,
-		bottom : 30
+		top : 550,
+		borderRadius: 10,
+		width: 200,
+		height: 40
 	}));
+	
+	function logVerified(){
+		if (facebook.loggedIn == true) {
+			ventanaMenu(bd).open();
+		} else{
+			if (facebook.loggedIn == false) {
+				alert("Inicie sesión localmente o con su cuenta de Facebook");
+			};
+		};
+		
+	}
 	
 	return self;
 }

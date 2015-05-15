@@ -138,22 +138,71 @@ reverseGeoLabel.text = getAddress(mapview.region.latitude,mapview.region.longitu
 };
 
 var botonAlerta = Ti.UI.createButton({
-		title:'S.O.S HELP',
-		backgroundColor: '#8d2242',
-		top:350
+		title:'Auxilio',
+		backgroundColor: '#cddc39',
+		color: 'black',
+		top:350,
+		borderRadius: 10,
+		width: 200,
+		height: 40
 	});
 	
 	botonAlerta.addEventListener('click',function(e){
 		//alert('Enviando Alerta');
-		ventanaEnvioAlerta(bd,longitude,latitude).open();
+		//ventanaEnvioAlerta(bd,longitude,latitude).open();
+		Titanium.Media.takeScreenshot(function(e) {
+
+	        var emailDialog = Titanium.UI.createEmailDialog();
+	        emailDialog.setToRecipients(['arrp19@gmail.com']);
+	        emailDialog.setSubject('Alerta');
+	        emailDialog.setMessageBody('Alerta......\n'+'Longitud = ' + longitude +'\n Latitud = ' + latitude);
+	        emailDialog.setHtml(true);
+	
+	        emailDialog.addEventListener('complete', function(e) {
+	            if(e.result == emailDialog.SENT) {
+	
+	                alert("CONFIRMACION DE ENVIO DE ALERTA");
+	            }
+	        });
+	        emailDialog.open();
+	    });
+	    
+	    /*SMS SEND*/
+	    self.addEventListener('open', function () {
+			var SMSDialog = Titanium.UI.createSMSDialog();
+			if (!SMSDialog.isSupported()) {
+				Ti.UI.createAlertDialog({
+					title: 'Error',
+					message: 'SMS not available'
+				}).show();
+				return;
+			}
+	
+			SMSDialog.setToRecipients(['+593992900868']);
+			SMSDialog.setMessageBody('Alerta......\n'+'Longitud = ' + longitude +'\n Latitud = ' + latitude);
+	
+			SMSDialog.addEventListener('complete', function (e) {
+				if (e.result === SMSDialog.SENT) {
+					Ti.API.info('SMS was sent');
+				} else if (e.result === SMSDialog.CANCELLED) {
+					Ti.API.info('SMS was cancelled');
+				} else if (e.result === SMSDialog.FAILED) {
+					Ti.API.info('SMS was failed');
+				}
+			});
+	
+			SMSDialog.open();
+		});// Fin SMS
 	});
 
 var boton = Titanium.UI.createButton ({
 	title: 'Cerrar',
+	backgroundColor: '#cddc39',
+	color: 'black',
 	top:450,
-	width:120,
-	height:40,
-	backgroundColor:'#8d2242'
+	borderRadius: 10,
+	width: 200,
+	height: 40
 });
 
  

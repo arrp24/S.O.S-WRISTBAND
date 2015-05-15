@@ -1,3 +1,6 @@
+/**
+ *Esta pagina queda descontinuada por romper el flujo
+ *  */
 function ventanaEnvioAlerta(bd,longitude,latitude){
 	if(bd === undefined) var bd = Ti.Database.open('baseDeDatosA');
 	
@@ -11,7 +14,12 @@ function ventanaEnvioAlerta(bd,longitude,latitude){
 
 	var btn = Ti.UI.createButton({
 		title:'Enviar Alerta',
-		backgroundColor: '#8d2242',
+		backgroundColor: '#cddc39',
+		color: 'black',
+		right: 20,
+		borderRadius: 10,
+		width: 200,
+		height: 40,
 		top:200
 	});
 	/**comentario*/
@@ -37,9 +45,13 @@ function ventanaEnvioAlerta(bd,longitude,latitude){
 	self.add(btn);
 	
 	var botonCerrar = Ti.UI.createButton({
-		title:'Cerrar',
-		backgroundColor: '#8d2242',
-		top:270
+		title: 'Atras',
+		backgroundColor: '#cddc39',
+		color: 'black',
+		right: 20,
+		borderRadius: 10,
+		width: 100,
+		height: 40
 	});
 	
 	botonCerrar.addEventListener('click',function(e){
